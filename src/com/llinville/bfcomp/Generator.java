@@ -105,6 +105,18 @@ public class Generator {
         rightn(blockSize);
     }
 
+    public void printStackValue(){
+        rightn(4);
+        literal(".");
+        leftn(4);
+    }
+
+    public void printVariableValue(){
+        rightn(5);
+        literal(".");
+        leftn(5);
+    }
+
     public void initialize(int n){
         rightblock();
         right();
@@ -178,6 +190,11 @@ public class Generator {
         leftn(5);
     }
 
+    public void gotoVariable(String name){
+        int variableLocation = variableLocations.get(name);
+        gotoBlock(variableLocation);
+    }
+
     public void pushVariableOntoStack(String name){
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
@@ -242,7 +259,7 @@ public class Generator {
         //goto the variable slot, carrying the value with us
         right();
         setValue(variableLocation);
-        literal("#[");
+        literal("[");
             right();
             literal("[");
                 dec();
@@ -262,7 +279,7 @@ public class Generator {
         literal("]");
 
         //move the value to the variable slot
-        literal("#>>>>[-]<<<[->>>+<<<]<<");
+        literal(">>>>[-]<<<[->>>+<<<]<<");
     }
 
     public void add(){
@@ -295,5 +312,19 @@ public class Generator {
         leftblock();
     }
 
+    public void whileVariable(String name){
+        int variableLocation = variableLocations.get(name);
+        gotoBlock(variableLocation);
+        rightn(5);
+        literal("[");
+        leftn(5);
+    }
 
+    public void endWhileVariable(String name){
+        int variableLocation = variableLocations.get(name);
+        gotoBlock(variableLocation);
+        rightn(5);
+        literal("]");
+        leftn(5);
+    }
 }

@@ -7,14 +7,16 @@ public class InterpreterExample {
 
         Generator g = new Generator();
         g.initialize(10);
-        g.newVariable("a",10);
-        g.newVariable("b");
-        g.newVariable("c",11);
+        g.newVariable("a", 100);
+        g.whileVariable("a");
         g.pushVariableOntoStack("a");
-        g.pushVariableOntoStack("b");
-        g.pushVariableOntoStack("c");
-        g.pushToStack(25);
-        g.add();
+        g.pushToStack(1);
+        g.sub();
+        g.popStackIntoVariable("a");
+        g.gotoVariable("a");
+        g.printVariableValue();
+        g.endWhileVariable("a");
+
 
 
         Interpreter interpreter = new Interpreter(g.getProgram());

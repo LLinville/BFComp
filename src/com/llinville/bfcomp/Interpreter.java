@@ -99,7 +99,7 @@ public class Interpreter {
                 }
                 break;
             case '.':
-                System.out.println("Output: " + (char) tape[tapeLocation]);
+                System.out.println("Output: " + tape[tapeLocation] + " = " + (char) tape[tapeLocation]);
                 programCounter++;
                 break;
             case '#':
