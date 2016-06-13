@@ -23,7 +23,25 @@ public class Generator {
         return originalOVL;
     }
 
+    private void cleanOnce(){
+        program = program.replaceAll("<>","");
+        program = program.replaceAll("><","");
+        program = program.replaceAll("\\+-","");
+        program = program.replaceAll("-\\+","");
+        program = program.replaceAll("\\[\\]","");
+    }
+
+    public void cleanProgram(){
+        int oldlen = program.length();
+        cleanOnce();
+        while(oldlen != program.length()){
+            oldlen = program.length();
+            cleanOnce();
+        }
+    }
+
     public String getProgram(){
+        cleanProgram();
         return program;
     }
 
@@ -119,11 +137,13 @@ public class Generator {
         literal("[");
         rightblock();
         literal("]");
+        leftblock();
         leftn(3);
     }
 
     public void pushToStack(int n){
         gotoEndOfStack();
+        rightblock();
         rightn(3); //goto isEndOfStack
         inc();
         right();
@@ -182,7 +202,7 @@ public class Generator {
             literal("]");
             leftn(2);
             leftblock();
-        literal("]#");
+        literal("]");
 
         //move variable to end of stack
         rightn(3);
@@ -195,8 +215,85 @@ public class Generator {
                 leftblock();
             literal("]");
             right();
+            rightblock();
         literal("]");
-        inc();
-        leftn(3);
+        literal("+<[->>+<<]<<");
+
     }
+
+    public void popStackIntoVariable(String name){
+        int variableLocation = variableLocations.get(name);
+        gotoEndOfStack();
+        literal(">>[-]>>[-<<+>>]<-<<<"); //copy from stack value into scratch space
+
+        //go to the first block
+        literal("[");
+            rightn(2);
+            literal("[");
+                dec();
+                leftblock();
+                inc();
+                rightblock();
+            literal("]");
+            leftn(2);
+            leftblock();
+        literal("]");
+
+        //goto the variable slot, carrying the value with us
+        right();
+        setValue(variableLocation);
+        literal("#[");
+            right();
+            literal("[");
+                dec();
+                rightblock();
+                inc();
+                leftblock();
+            literal("]");
+            left();
+            literal("[");
+                dec();
+                rightblock();
+                inc();
+                leftblock();
+            literal("]");
+            rightblock();
+            dec();
+        literal("]");
+
+        //move the value to the variable slot
+        literal("#>>>>[-]<<<[->>>+<<<]<<");
+    }
+
+    public void add(){
+        gotoEndOfStack();
+        rightn(3);
+        dec();
+        right();
+        literal("[");
+            dec();
+            leftblock();
+            inc();
+            rightblock();
+        literal("]");
+        leftn(4);
+        leftblock();
+    }
+
+    public void sub(){
+        gotoEndOfStack();
+        rightn(3);
+        dec();
+        right();
+        literal("[");
+        dec();
+        leftblock();
+        dec();
+        rightblock();
+        literal("]");
+        leftn(4);
+        leftblock();
+    }
+
+
 }
