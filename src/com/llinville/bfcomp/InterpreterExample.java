@@ -10,9 +10,14 @@ public class InterpreterExample {
         g.newVariable("a",10);
         g.newVariable("b");
         g.newVariable("c",11);
+        g.pushVariableOntoStack("a");
+        g.pushVariableOntoStack("b");
+        g.pushVariableOntoStack("c");
+        g.pushToStack(25);
+        g.add();
+
 
         Interpreter interpreter = new Interpreter(g.getProgram());
-        interpreter.printState();
         interpreter.run();
         interpreter.printState();
 

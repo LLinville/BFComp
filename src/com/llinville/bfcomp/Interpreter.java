@@ -43,15 +43,15 @@ public class Interpreter {
     public void printState(){
         System.out.print("\n\n");
         for(int i=0; i<printWidth; i++){
-            System.out.print("   " + i + "   ");
+            System.out.print("\t " + i + " \t");
         }
         System.out.print("\n\n");
         for(int row=0; row<printLength; row++){
             for(int col=0; col<printWidth; col++){
                 if(row * printWidth + col == tapeLocation){
-                    System.out.print("  _" + tape[row * printWidth + col] + "_  ");
+                    System.out.print("\t_" + tape[row * printWidth + col] + "_\t");
                 } else {
-                    System.out.print("   " + tape[row * printWidth + col] + "   ");
+                    System.out.print("\t " + tape[row * printWidth + col] + "\t ");
                 }
             }
             System.out.print("\n");
