@@ -1,0 +1,11 @@
+Start indicator
+goto: number of blocks left to skip
+scratch / value carry-along
+	for moving variables from one location to another
+isPartOfStack
+stackValue
+variableValue
+
+
+
+Register of available scratch value locations

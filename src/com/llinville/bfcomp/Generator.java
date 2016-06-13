@@ -70,8 +70,12 @@ public class Generator {
         }
     }
 
-    public void setValue(int n){
+    public void zeroCell(){
         literal("[-]");
+    }
+
+    public void setValue(int n){
+        zeroCell();
         incn(n);
     }
 
@@ -152,5 +156,47 @@ public class Generator {
         rightn(5);
         setValue(value);
         leftn(5);
+    }
+
+    public void pushVariableOntoStack(String name){
+        int variableLocation = variableLocations.get(name);
+        gotoBlock(variableLocation);
+        rightn(5); //goto variableValue
+        //copy to the scratch variable move along
+        literal("[-<<<+<+>>>>]<<<<[->>>>+<<<<]");
+        left();
+
+        //move variable to scratch of first block
+        literal("[");//until we are at the first block
+            leftblock();
+            rightn(2);
+            zeroCell();
+
+            //move variable one block left
+            rightblock();
+            literal("[");
+                leftblock();
+                inc();
+                rightblock();
+                dec();
+            literal("]");
+            leftn(2);
+            leftblock();
+        literal("]#");
+
+        //move variable to end of stack
+        rightn(3);
+        literal("[");
+            left();
+            literal("[");
+                dec();
+                rightblock();
+                inc();
+                leftblock();
+            literal("]");
+            right();
+        literal("]");
+        inc();
+        leftn(3);
     }
 }
