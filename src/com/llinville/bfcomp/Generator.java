@@ -9,11 +9,54 @@ public class Generator {
     private Map<String, Integer> variableLocations;
     private int openVariableLocation;
 
+    private PointerLocation currentPointerLocation;
+
     public Generator(){
         program = "";
         blockSize = 6;
         variableLocations = new HashMap<>();
         openVariableLocation = 0;
+        currentPointerLocation = PointerLocation.ZERO;
+    }
+
+    private enum PointerLocation{
+        STACKEND,
+        ZERO,
+        UNKNOWN;
+    }
+
+    //prepares for a function by putting the cursor in the right location
+    private void startPosition(PointerLocation target){
+        if(target == PointerLocation.UNKNOWN){
+            //no action
+        } else if(target == PointerLocation.ZERO){
+            switch(currentPointerLocation){
+                case UNKNOWN:
+                    gotoStart();
+                    break;
+                case ZERO:
+                    break;
+                case STACKEND:
+                    gotoStart();
+                    break;
+            }
+        } else if(target == PointerLocation.STACKEND){
+            switch(currentPointerLocation){
+                case UNKNOWN:
+                    gotoEndOfStack();
+                    break;
+                case ZERO:
+                    gotoEndOfStack();
+                    break;
+                case STACKEND:
+                    break;
+            }
+        }
+        currentPointerLocation = target;
+    }
+
+    private void endPosition(PointerLocation result){
+        currentPointerLocation = result;
     }
 
     public int makeVariableTableEntry(String name){
@@ -23,21 +66,58 @@ public class Generator {
         return originalOVL;
     }
 
+    public int makeVariableTableEntry(String name, int size){
+        int originalOVL = openVariableLocation;
+        variableLocations.put(name, openVariableLocation);
+        openVariableLocation += size;
+        return originalOVL;
+    }
+
+    private void removeUselessLoops(){
+        int startIndex = program.indexOf("][") + 1;
+        int endIndex = startIndex;
+        int currentDepth = 1;
+        if(startIndex == -1 + 1) return;
+
+        for(int currentIndex = startIndex+1; currentIndex < program.length(); currentIndex++){
+            if(currentDepth == 0){
+                endIndex = currentIndex;
+                break;
+            }
+
+            if(program.charAt(currentIndex) == '['){
+                currentDepth++;
+            } else if(program.charAt(currentIndex) == ']'){
+                currentDepth--;
+            }
+        }
+
+        System.out.println("Removing characters " + startIndex + " - " + endIndex);
+        program = program.substring(0, startIndex) + program.substring(endIndex, program.length());
+
+    }
+
     private void cleanOnce(){
         program = program.replaceAll("<>","");
         program = program.replaceAll("><","");
         program = program.replaceAll("\\+-","");
         program = program.replaceAll("-\\+","");
         program = program.replaceAll("\\[\\]","");
+
+        removeUselessLoops();
+        //program = program.replaceAll("\\]\\[.*\\]","]");
     }
 
     public void cleanProgram(){
         int oldlen = program.length();
+        System.out.println("Before cleaning length: " + oldlen);
         cleanOnce();
         while(oldlen != program.length()){
             oldlen = program.length();
             cleanOnce();
         }
+        System.out.println("After cleaning length: " + oldlen);
+        System.out.println("Index of \"][\" : " + program.indexOf("]["));
     }
 
     public String getProgram(){
@@ -47,6 +127,14 @@ public class Generator {
 
     public void literal(String toAdd){
         program = program + toAdd;
+    }
+
+    public void newLine(){
+        literal("\n");
+    }
+
+    public void tab(){
+        literal("\t");
     }
 
     public void inc(){
@@ -87,6 +175,14 @@ public class Generator {
             right();
         }
     }
+    
+    public void open(){
+        literal("[");
+    }
+    
+    public void close(){
+        literal("]");
+    }
 
     public void zeroCell(){
         literal("[-]");
@@ -104,6 +200,14 @@ public class Generator {
     public void rightblock(){
         rightn(blockSize);
     }
+    
+    public void leftnblock(int n){
+        leftn(blockSize * n);
+    }
+    
+    public void rightnblock(int n){
+        rightn(blockSize * n);
+    }
 
     public void printStackValue(){
         rightn(4);
@@ -117,6 +221,10 @@ public class Generator {
         leftn(5);
     }
 
+    public void debug(){
+        literal("#");
+    }
+
     public void initialize(int n){
         rightblock();
         right();
@@ -127,10 +235,10 @@ public class Generator {
                 rightblock();
                 literal("+");
                 leftblock();
-                literal("]");
+                close();
 
             rightblock();
-            literal("]");
+            close();
         left();
         leftblock();
         gotoStart();
@@ -138,17 +246,17 @@ public class Generator {
     }
 
     public void gotoStart(){
-        literal("[");
+        open();
         leftblock();
-        literal("]");
+        close();
     }
 
     public void gotoEndOfStack(){
         gotoStart();
         rightn(3); //goto isEndOfStack
-        literal("[");
+        open();
         rightblock();
-        literal("]");
+        close();
         leftblock();
         leftn(3);
     }
@@ -173,9 +281,9 @@ public class Generator {
             rightblock();
             inc();
             leftblock();
-            literal("]");
+            close();
         rightblock();
-        literal("]");
+        close();
         left();
     }
 
@@ -195,6 +303,28 @@ public class Generator {
         gotoBlock(variableLocation);
     }
 
+    public void incnVariable(String name, int n){
+        gotoVariable(name);
+        rightn(5);
+        incn(n);
+        leftn(5);
+    }
+
+    public void decnVariable(String name, int n){
+        gotoVariable(name);
+        rightn(5);
+        decn(n);
+        leftn(5);
+    }
+
+    public void incVariable(String name){
+        incnVariable(name, 1);
+    }
+
+    public void decVariable(String name){
+        decnVariable(name, 1);
+    }
+
     public void pushVariableOntoStack(String name){
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
@@ -204,119 +334,177 @@ public class Generator {
         left();
 
         //move variable to scratch of first block
-        literal("[");//until we are at the first block
+        open();//until we are at the first block
             leftblock();
             rightn(2);
             zeroCell();
 
             //move variable one block left
             rightblock();
-            literal("[");
+            open();
                 leftblock();
                 inc();
                 rightblock();
                 dec();
-            literal("]");
+            close();
             leftn(2);
             leftblock();
-        literal("]");
+        close();
 
         //move variable to end of stack
         rightn(3);
-        literal("[");
+        open();
             left();
-            literal("[");
+            open();
                 dec();
                 rightblock();
                 inc();
                 leftblock();
-            literal("]");
+            close();
             right();
             rightblock();
-        literal("]");
+        close();
         literal("+<[->>+<<]<<");
 
     }
 
     public void popStackIntoVariable(String name){
         int variableLocation = variableLocations.get(name);
-        gotoEndOfStack();
         literal(">>[-]>>[-<<+>>]<-<<<"); //copy from stack value into scratch space
 
         //go to the first block
-        literal("[");
+        open();
             rightn(2);
-            literal("[");
+            open();
                 dec();
                 leftblock();
                 inc();
                 rightblock();
-            literal("]");
+            close();
             leftn(2);
             leftblock();
-        literal("]");
+        close();
 
         //goto the variable slot, carrying the value with us
         right();
         setValue(variableLocation);
-        literal("[");
+        open();
             right();
-            literal("[");
+            open();
                 dec();
                 rightblock();
                 inc();
                 leftblock();
-            literal("]");
+            close();
             left();
-            literal("[");
+            open();
                 dec();
                 rightblock();
                 inc();
                 leftblock();
-            literal("]");
+            close();
             rightblock();
             dec();
-        literal("]");
+        close();
 
         //move the value to the variable slot
         literal(">>>>[-]<<<[->>>+<<<]<<");
     }
 
+    public void popStack(){
+
+    }
+
+    //places another copy of the top of the stack onto the stack
+    public void dupStackTop(){
+
+    }
+
     public void add(){
-        gotoEndOfStack();
         rightn(3);
         dec();
         right();
-        literal("[");
+        open();
             dec();
             leftblock();
             inc();
             rightblock();
-        literal("]");
+        close();
         leftn(4);
         leftblock();
     }
 
     public void sub(){
-        gotoEndOfStack();
         rightn(3);
         dec();
         right();
-        literal("[");
+        open();
         dec();
         leftblock();
         dec();
         rightblock();
-        literal("]");
+        close();
         leftn(4);
         leftblock();
+    }
+
+    public void mult(){
+        //clean temporary cells
+        rightn(3);
+        dec();
+        right();
+        rightblock();
+        zeroCell();
+        rightblock();
+        zeroCell();
+        leftnblock(2);
+
+        leftblock();
+        open();
+            rightnblock(3);
+            inc();
+            leftnblock(3);
+            dec();
+        close();
+
+        rightnblock(3);
+        open();
+            leftnblock(2);
+            open();
+                debug();
+                leftblock();
+                inc();
+                rightnblock(2);
+                inc();
+                leftblock();
+                dec();
+            close();
+            rightblock();
+            open();
+                leftblock();
+                inc();
+                rightblock();
+                dec();
+            close();
+            rightblock();
+            dec();
+        close();
+        leftn(4);
+        
+    }
+
+    public void swapVariables(String var1, String var2){
+        pushVariableOntoStack(var1);
+        pushVariableOntoStack(var2);
+        popStackIntoVariable(var1);
+        popStackIntoVariable(var2);
     }
 
     public void whileVariable(String name){
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
         rightn(5);
-        literal("[");
+        open();
         leftn(5);
     }
 
@@ -324,7 +512,47 @@ public class Generator {
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
         rightn(5);
-        literal("]");
+        close();
         leftn(5);
+    }
+
+    public void ifVariable(String name){
+        int variableLocation = variableLocations.get(name);
+        gotoBlock(variableLocation);
+        rightn(5);
+        open();
+        leftn(5);
+    }
+
+    public void endIfVariable(){
+        gotoStart();
+        close();
+    }
+
+    public void ifStack(){
+
+    }
+
+    //eat two from the stack and put back 1 if they were equal and zero otherwise
+    public void checkEquality(){
+        gotoEndOfStack();
+        rightn(4);
+        open();
+            dec();
+            rightblock();
+            dec();
+            leftblock();
+        close();
+        inc();
+        rightblock();
+        open();
+            leftblock();
+            dec();
+            rightblock();
+            debug();
+            zeroCell();
+            debug();
+        close();
+        leftn(4);
     }
 }

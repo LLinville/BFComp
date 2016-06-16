@@ -13,12 +13,14 @@ public class Interpreter {
     private Map<Integer, Integer> bracketMap;
     private char [] program;
     private int programCounter;
+    private int instructionsExecuted;
 
     public Interpreter(String program){
         tape = new int[tapeLength];
         bracketMap = new HashMap<Integer, Integer>();
         programCounter = 0;
         tapeLocation = 0;
+        instructionsExecuted = 0;
         program = program.replaceAll("[^\\+-<>\\[\\]\\.,#]","");
         this.program = program.toCharArray();
         System.out.println("Program after removing non-commands:");
@@ -41,6 +43,7 @@ public class Interpreter {
     }
 
     public void printState(){
+        System.out.println("After " + instructionsExecuted + " steps:");
         System.out.print("\n\n");
         for(int i=0; i<printWidth; i++){
             System.out.print("\t " + i + " \t");
@@ -110,6 +113,7 @@ public class Interpreter {
                 System.out.println("Unknown character: " + program[programCounter]);
                 programCounter++;
         }
+        instructionsExecuted++;
     }
 
     public void run(){
