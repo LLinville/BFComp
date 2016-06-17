@@ -7,28 +7,30 @@ public class InterpreterExample {
 
         Generator g = new Generator();
 
-        //FIBONACCI
+//        //FIBONACCI
+//        g.initialize(10);
+//        g.newVariable("a",0);
+//        g.newVariable("b",1);
+//        g.newVariable("c",10);
+//        g.whileVariable("a");
+//            g.debug();
+//            g.swapVariables("a", "b");
+//            g.pushVariableOntoStack("a");
+//            g.pushVariableOntoStack("b");
+//            g.add();
+//            g.printStackValue();
+//            g.popStackIntoVariable("b");
+//            g.decVariable("c");
+//        g.endWhileVariable("a");
+
         g.initialize(10);
-        g.newVariable("a",0);
-        g.newVariable("b",1);
-        g.newVariable("c",10);
-        g.whileVariable("c");
+        g.pushToStack(0);
+        g.pushToStack(1);
+
+        g.checkEquality();
+        g.ifStack();
             g.debug();
-            g.swapVariables("a", "b");
-            g.pushVariableOntoStack("a");
-            g.pushVariableOntoStack("b");
-            g.add();
-            g.printStackValue();
-            g.popStackIntoVariable("b");
-            g.decVariable("c");
-        g.endWhileVariable("c");
-
-//        g.initialize(8);
-//        g.pushToStack(5);
-//        g.pushToStack(5);
-//        g.checkEquality();
-//        System.out.println(g.getProgram());
-
+        g.endIf();
 
         Interpreter interpreter = new Interpreter(g.getProgram());
         interpreter.run();

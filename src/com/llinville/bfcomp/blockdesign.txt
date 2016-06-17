@@ -2,6 +2,7 @@ Start indicator
 goto: number of blocks left to skip
 scratch / value carry-along
 	for moving variables from one location to another
+	should be zeroed after use
 isPartOfStack
 stackValue
 variableValue
