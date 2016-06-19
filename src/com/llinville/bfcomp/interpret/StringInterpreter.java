@@ -1,10 +1,10 @@
-package com.llinville.bfcomp;
+package com.llinville.bfcomp.interpret;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-public class Interpreter {
+public class StringInterpreter implements Interpreter{
     private static final int tapeLength = 30000;
     private static final int printWidth = 6;
     private static final int printLength = 15;
@@ -15,7 +15,7 @@ public class Interpreter {
     private int programCounter;
     private int instructionsExecuted;
 
-    public Interpreter(String program){
+    public StringInterpreter(String program){
         tape = new int[tapeLength];
         bracketMap = new HashMap<Integer, Integer>();
         programCounter = 0;

@@ -8,4 +8,28 @@ variableValue
 
 
 
+Generator:
 Register of available scratch value locations
+
+Polynomial evaluation support
+    Large number initialization via polynomials
+
+
+Interpreter:
+comprehension of copy loops
+    recursively?
+
+
+
+Interpreter interface
+    String interpreter
+    CommandChain interpreter
+Optimizer
+    Turns program strings into CommandChain
+    Finds patterns that can be optimized
+
+
+
+
+
+

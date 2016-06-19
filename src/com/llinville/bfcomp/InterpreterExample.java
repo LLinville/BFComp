@@ -1,6 +1,9 @@
 package com.llinville.bfcomp;
 
-import java.io.FileInputStream;
+import com.llinville.bfcomp.interpret.StringInterpreter;
+import com.llinville.bfcomp.interpret.commandchain.CommandChainInterpreter;
+
+import java.util.Date;
 
 public class InterpreterExample {
     public static void main(String args[]){
@@ -9,11 +12,11 @@ public class InterpreterExample {
 
         //FIBONACCI
         g.initialize(10);
+        g.debug();
         g.newVariable("a",0);
         g.newVariable("b",1);
-        g.newVariable("c",10);
+        g.newVariable("c",30);
         g.whileVariable("c");
-            g.debug();
             g.swapVariables("a", "b");
             g.pushVariableOntoStack("a");
             g.pushVariableOntoStack("b");
@@ -30,9 +33,20 @@ public class InterpreterExample {
 //        System.out.println(g.getProgram());
 
 
-        Interpreter interpreter = new Interpreter(g.getProgram());
+        long startTime = new Date().getTime();
+        CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());
         interpreter.run();
-        interpreter.printState();
+
+        long middleTime = new Date().getTime();
+
+        StringInterpreter stringInterpreter = new StringInterpreter(g.getProgram());
+        stringInterpreter.run();
+        stringInterpreter.printState();
+
+        long endTime = new Date().getTime();
+
+        System.out.println("CommandChainInterpreter time: " + (middleTime - startTime));
+        System.out.println("StringInterpreter time: " + (endTime - middleTime));
 
     }
 }
