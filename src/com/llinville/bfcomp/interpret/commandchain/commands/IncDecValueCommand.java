@@ -3,10 +3,11 @@ package com.llinville.bfcomp.interpret.commandchain.commands;
 import com.llinville.bfcomp.interpret.commandchain.InterpreterState;
 
 public class IncDecValueCommand extends Command{
-    int amount;
+    private int amount;
 
-    public IncDecValueCommand(int amount){
-        this.amount += amount;
+    public IncDecValueCommand(int count){
+        super(CommandType.INCDEC);
+        amount += count;
     }
 
     public String toString(){

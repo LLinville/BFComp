@@ -7,6 +7,9 @@ public class Command implements StateTransition {
     private CommandType commandType;
 
     public enum CommandType{
+        INCDEC,
+        SET,
+        ZERO,
         LITERAL,
         NOP;
     }

@@ -36,11 +36,12 @@ public class CommandChain {
         return commands.size();
     }
 
-    public void replaceRange(int start, int end, Command command){
+    public CommandChain replaceRange(int start, int end, Command command){
         List<Command> newCommands = new ArrayList<>();
         newCommands.addAll(commands.subList(0,start));
         newCommands.add(command);
         newCommands.addAll(commands.subList(end, commands.size()));
+        return new CommandChain(newCommands);
     }
 
     public CommandChain copy(){

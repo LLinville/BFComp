@@ -10,8 +10,8 @@ public class Optimizer {
         int commandChainLength = commandChain.length();
         commandChain = removeIncDec(commandChain);
         while(commandChainLength != commandChain.length()){
-            removeIncDec(commandChain);
             commandChainLength = commandChain.length();
+            removeIncDec(commandChain);
         }
         return commandChain;
     }
@@ -21,23 +21,23 @@ public class Optimizer {
         int currentIndex = 0;
         while(currentIndex < commandChain.length()){
             if(commandChain.getCommand(currentIndex).getCommandType() == Command.CommandType.LITERAL){
-                LiteralCommand command = (LiteralCommand) commandChain.getCommand(currentIndex);
+                Command com = commandChain.getCommand(currentIndex);
+                System.out.println("Current command type: " + com.getClass());
+                LiteralCommand command = (LiteralCommand) com;
                 int runLength = getRunLength(commandChain, currentIndex);
                 if(command.getOperator() == LiteralCommand.LiteralOperator.PLUS){
                     //at the start of a potential chain of increments
                     System.out.println("Found run of +'s " + runLength + " long for removal");
                     if(runLength > 1){
                         //replace the run with a new IncDecValueCommand
-                        toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(runLength));
-                        return toReturn;
+                        return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(runLength));
                     }
                 } else if(command.getOperator() == LiteralCommand.LiteralOperator.MINUS){
                     //at the start of a potential chain of decrements
                     System.out.println("Found run of -'s " + runLength + " long for removal");
                     if(runLength > 1){
                         //replace the run with a new IncDecValueCommand
-                        toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(-1*runLength));
-                        return toReturn;
+                        return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(-1*runLength));
                     }
                 }
             }
@@ -54,7 +54,9 @@ public class Optimizer {
 
         LiteralCommand.LiteralOperator originalOperator = ((LiteralCommand) commandChain.getCommand(startPosition)).getOperator();
         int currentPosition = startPosition;
-        while(((LiteralCommand) commandChain.getCommand(currentPosition)).getOperator() == originalOperator){
+        while(currentPosition < commandChain.length()
+                && commandChain.getCommand(currentPosition) instanceof LiteralCommand
+                && ((LiteralCommand) commandChain.getCommand(currentPosition)).getOperator() == originalOperator){
             currentPosition++;
         }
 
