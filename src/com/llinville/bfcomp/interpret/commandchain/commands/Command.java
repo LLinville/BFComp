@@ -8,9 +8,11 @@ public class Command implements StateTransition {
 
     public enum CommandType{
         INCDEC,
+        LEFTRIGHT,
         SET,
         ZERO,
         LITERAL,
+        BALLANCEDLOOP,
         NOP;
     }
 

@@ -33,20 +33,21 @@ public class InterpreterExample {
 //        System.out.println(g.getProgram());
 
 
-        long startTime = new Date().getTime();
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());
+        long startTime = new Date().getTime();
         interpreter.run();
-
-        long middleTime = new Date().getTime();
+        long endTime = new Date().getTime();
+        long commandChainTime = endTime - startTime;
 
         StringInterpreter stringInterpreter = new StringInterpreter(g.getProgram());
+        startTime = new Date().getTime();
         stringInterpreter.run();
+        endTime = new Date().getTime();
         stringInterpreter.printState();
+        long stringTime = endTime - startTime;
 
-        long endTime = new Date().getTime();
-
-        System.out.println("CommandChainInterpreter time: " + (middleTime - startTime));
-        System.out.println("StringInterpreter time: " + (endTime - middleTime));
+        System.out.println("CommandChainInterpreter time: " + commandChainTime);
+        System.out.println("StringInterpreter time: " + stringTime);
 
     }
 }

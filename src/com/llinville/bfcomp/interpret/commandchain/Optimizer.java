@@ -1,9 +1,8 @@
 package com.llinville.bfcomp.interpret.commandchain;
 
-import com.llinville.bfcomp.interpret.commandchain.commands.Command;
-import com.llinville.bfcomp.interpret.commandchain.commands.IncDecValueCommand;
-import com.llinville.bfcomp.interpret.commandchain.commands.LiteralCommand;
-import com.llinville.bfcomp.interpret.commandchain.commands.SetValueCommand;
+import com.llinville.bfcomp.interpret.commandchain.CommandChain;
+import com.llinville.bfcomp.interpret.commandchain.commands.*;
+import com.llinville.bfcomp.interpret.commandchain.optimizers.BalancedLoopOptimizer;
 
 public class Optimizer {
     public static CommandChain optimize(CommandChain commandChain){
@@ -11,7 +10,9 @@ public class Optimizer {
         commandChain = removeIncDec(commandChain);
         while(commandChainLength != commandChain.length()){
             commandChainLength = commandChain.length();
-            removeIncDec(commandChain);
+            commandChain = removeIncDec(commandChain);
+            commandChain = removeZeroCell(commandChain);
+            commandChain = removeLeftRight(commandChain);
         }
         return commandChain;
     }
@@ -20,30 +21,77 @@ public class Optimizer {
         CommandChain toReturn = commandChain.copy();
         int currentIndex = 0;
         while(currentIndex < commandChain.length()){
-            if(commandChain.getCommand(currentIndex).getCommandType() == Command.CommandType.LITERAL){
-                Command com = commandChain.getCommand(currentIndex);
-                System.out.println("Current command type: " + com.getClass());
-                LiteralCommand command = (LiteralCommand) com;
+            if(doesCommandMatchOperator(commandChain.getCommand(currentIndex), LiteralCommand.LiteralOperator.PLUS)) {
+                //at the start of a potential chain of increments
                 int runLength = getRunLength(commandChain, currentIndex);
-                if(command.getOperator() == LiteralCommand.LiteralOperator.PLUS){
-                    //at the start of a potential chain of increments
+                if (runLength > 1) {
                     System.out.println("Found run of +'s " + runLength + " long for removal");
-                    if(runLength > 1){
-                        //replace the run with a new IncDecValueCommand
-                        return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(runLength));
-                    }
-                } else if(command.getOperator() == LiteralCommand.LiteralOperator.MINUS){
-                    //at the start of a potential chain of decrements
-                    System.out.println("Found run of -'s " + runLength + " long for removal");
-                    if(runLength > 1){
-                        //replace the run with a new IncDecValueCommand
-                        return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(-1*runLength));
-                    }
+                    //replace the run with a new IncDecValueCommand
+                    return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(runLength));
                 }
+            } else if(doesCommandMatchOperator(commandChain.getCommand(currentIndex), LiteralCommand.LiteralOperator.MINUS)){
+                //at the start of a potential chain of decrements
+                int runLength = getRunLength(commandChain, currentIndex);
+                if(runLength > 1){
+                    System.out.println("Found run of -'s " + runLength + " long for removal");
+                    //replace the run with a new IncDecValueCommand
+                    return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(-1*runLength));
+                }
+
             }
             currentIndex++;
         }
         return toReturn;
+    }
+
+    private static CommandChain removeLeftRight(CommandChain commandChain){
+        CommandChain toReturn = commandChain.copy();
+        int currentIndex = 0;
+        while(currentIndex < commandChain.length()){
+            if(doesCommandMatchOperator(commandChain.getCommand(currentIndex), LiteralCommand.LiteralOperator.LEFT)) {
+                //at the start of a potential chain of increments
+                int runLength = getRunLength(commandChain, currentIndex);
+                if (runLength > 1) {
+                    System.out.println("Found run of <'s " + runLength + " long for removal");
+                    //replace the run with a new IncDecValueCommand
+                    return toReturn.replaceRange(currentIndex, currentIndex + runLength, new LeftRightCommand(-1 * runLength));
+                }
+            } else if(doesCommandMatchOperator(commandChain.getCommand(currentIndex), LiteralCommand.LiteralOperator.RIGHT)){
+                //at the start of a potential chain of decrements
+                int runLength = getRunLength(commandChain, currentIndex);
+                if(runLength > 1){
+                    System.out.println("Found run of >'s " + runLength + " long for removal");
+                    //replace the run with a new IncDecValueCommand
+                    return toReturn.replaceRange(currentIndex, currentIndex + runLength, new LeftRightCommand(runLength));
+                }
+
+            }
+            currentIndex++;
+        }
+        return toReturn;
+    }
+
+    public static CommandChain removeZeroCell(CommandChain commandChain){
+        CommandChain toReturn = commandChain.copy();
+        for(int currentIndex = 0; currentIndex < commandChain.length(); currentIndex++){
+            if(doesCommandMatchOperator(commandChain.getCommand(currentIndex), LiteralCommand.LiteralOperator.OPEN)
+                && doesCommandMatchOperator(commandChain.getCommand(currentIndex + 1), LiteralCommand.LiteralOperator.MINUS)
+                && doesCommandMatchOperator(commandChain.getCommand(currentIndex + 2), LiteralCommand.LiteralOperator.CLOSE)){
+                return toReturn.replaceRange(currentIndex, currentIndex + 3, new ZeroCellCommand());
+            }
+        }
+        return toReturn;
+    }
+
+    public static CommandChain removeBalancedLoop(CommandChain commandChain){
+        return BalancedLoopOptimizer.removeBalancedLoop(commandChain);
+    }
+
+    public static boolean doesCommandMatchOperator(Command command, LiteralCommand.LiteralOperator operator){
+        if(!(command instanceof LiteralCommand)){
+            return false;
+        }
+        return ((LiteralCommand) command).getOperator() == operator;
     }
 
     public static int getRunLength(CommandChain commandChain, int startPosition){

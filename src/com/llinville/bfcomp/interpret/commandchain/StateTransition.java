@@ -1,5 +1,5 @@
 package com.llinville.bfcomp.interpret.commandchain;
 
 public interface StateTransition {
-    public void execute(InterpreterState state);
+    void execute(InterpreterState state);
 }

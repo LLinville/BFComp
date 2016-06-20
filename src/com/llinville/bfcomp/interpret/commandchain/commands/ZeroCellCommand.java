@@ -1,18 +1,19 @@
 package com.llinville.bfcomp.interpret.commandchain.commands;
 
-import com.llinville.bfcomp.interpret.Interpreter;
 import com.llinville.bfcomp.interpret.commandchain.InterpreterState;
 
-public class SetValueCommand extends Command implements Balanced{
-    int value;
+public class ZeroCellCommand extends Command implements Balanced{
+    public ZeroCellCommand(){
+        super(CommandType.ZERO);
+    }
 
-    public SetValueCommand(int value){
-        super(CommandType.SET);
-        this.value = value;
+    public String toString(){
+        return " Zero ";
     }
 
     public void execute(InterpreterState state){
-        state.setCellValue(value);
+        state.setCellValue(0);
+        state.incCommandCounter();
     }
 
     public void executeNTimes(InterpreterState state, int n){
