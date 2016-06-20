@@ -79,6 +79,10 @@ public class InterpreterState {
         incn(-1);
     }
 
+    public void setCellValue(int n){
+        tape[tapeLocation] = n;
+    }
+
     public void leftn(int n){
         tapeLocation -= n;
         if(tapeLocation < 0){

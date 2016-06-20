@@ -23,6 +23,10 @@ public class LiteralCommand extends Command{
             this.operator = operator;
         }
 
+        public char getSymbol(){
+            return operator;
+        }
+
         public static LiteralOperator getValue(char text){
             for (LiteralOperator b : LiteralOperator.values()) {
                 if (text == b.operator) {
@@ -49,6 +53,10 @@ public class LiteralCommand extends Command{
 
     public boolean equals(LiteralCommand command){
         return this.operator == command.getOperator();
+    }
+
+    public String toString(){
+        return Character.toString(operator.getSymbol());
     }
 
     public void execute(InterpreterState state){

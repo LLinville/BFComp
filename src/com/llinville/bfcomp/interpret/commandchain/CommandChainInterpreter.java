@@ -19,6 +19,8 @@ public class CommandChainInterpreter implements Interpreter {
         System.out.println(program);
         commandChain = stringToCommandChain(program);
         commandChain = Optimizer.optimize(commandChain);
+        System.out.println("Program after optimization:");
+        System.out.println(commandChain.toString());
         currentState = new InterpreterState(tapeSize, calculateBracketMap(commandChain));
     }
 

@@ -19,6 +19,10 @@ public class Command implements StateTransition {
         commandType = type;
     }
 
+    public String toString(){
+        return this.getCommandType().toString();
+    }
+
     public CommandType getCommandType() {
         return commandType;
     }
