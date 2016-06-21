@@ -1,0 +1,35 @@
+Start indicator
+goto: number of blocks left to skip
+scratch / value carry-along
+	for moving variables from one location to another
+isPartOfStack
+stackValue
+variableValue
+
+
+
+Generator:
+Register of available scratch value locations
+
+Polynomial evaluation support
+    Large number initialization via polynomials
+
+
+Interpreter:
+comprehension of copy loops
+    recursively?
+
+
+
+Interpreter interface
+    String interpreter
+    CommandChain interpreter
+Optimizer
+    Turns program strings into CommandChain
+    Finds patterns that can be optimized
+
+
+
+
+
+

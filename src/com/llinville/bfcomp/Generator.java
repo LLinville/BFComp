@@ -262,7 +262,7 @@ public class Generator {
     }
 
     public void pushToStack(int n){
-        gotoEndOfStack();
+        startPosition(PointerLocation.STACKEND);
         rightblock();
         rightn(3); //goto isEndOfStack
         inc();
@@ -471,7 +471,6 @@ public class Generator {
         open();
             leftnblock(2);
             open();
-                debug();
                 leftblock();
                 inc();
                 rightnblock(2);
@@ -490,7 +489,8 @@ public class Generator {
             dec();
         close();
         leftn(4);
-        
+        leftnblock(3);
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void swapVariables(String var1, String var2){
@@ -533,26 +533,47 @@ public class Generator {
 
     }
 
+    public void evaluatePolynomial(int base, int ... coefficients){
+        startPosition(PointerLocation.STACKEND);
+        int order = coefficients.length;
+        pushToStack(0);
+        for(int i = 0; i < order - 1; i++){
+            pushToStack(coefficients[i]);
+            add();
+            pushToStack(base);
+            mult();
+        }
+        pushToStack(coefficients[coefficients.length-1]);
+        add();
+        endPosition(PointerLocation.STACKEND);
+    }
+
     //eat two from the stack and put back 1 if they were equal and zero otherwise
     public void checkEquality(){
-        gotoEndOfStack();
-        rightn(4);
-        open();
-            dec();
-            rightblock();
-            dec();
-            leftblock();
-        close();
-        inc();
-        rightblock();
-        open();
-            leftblock();
-            dec();
-            rightblock();
-            debug();
-            zeroCell();
-            debug();
-        close();
-        leftn(4);
+        startPosition(PointerLocation.STACKEND);
+//        sub();
+//        rightn(4);
+//        rightblock();
+//        inc();
+//        leftblock();
+//        open();
+//            rightblock();
+//            dec();
+//            leftblock();
+//            zeroCell();
+//        close();
+//        rightblock();
+//        open();
+//            dec();
+//            leftblock();
+//            inc();
+//            rightblock();
+//        close();
+//        leftblock();
+
+
+
+
+        endPosition(PointerLocation.STACKEND);
     }
 }
