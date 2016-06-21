@@ -32,12 +32,23 @@ public class InterpreterExample {
 //        g.checkEquality();
 //        System.out.println(g.getProgram());
 
+        //g.evaluatePolynomial(2,1,1,0,1,1);
 
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());
         long startTime = new Date().getTime();
         interpreter.run();
         long endTime = new Date().getTime();
         long commandChainTime = endTime - startTime;
+
+
+//        g.initialize(10);
+//        g.pushToStack(0);
+//        g.pushToStack(1);
+//
+//        g.checkEquality();
+//        g.ifStack();
+//            g.debug();
+//        g.endIf();
 
         StringInterpreter stringInterpreter = new StringInterpreter(g.getProgram());
         startTime = new Date().getTime();
