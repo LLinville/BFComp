@@ -10,6 +10,10 @@ public class LeftRightCommand extends Command{
         amount = count;
     }
 
+    public int getAmount(){
+        return amount;
+    }
+
     public String toString(){
         if(amount > 0){
             return " Right(" + amount + ")";

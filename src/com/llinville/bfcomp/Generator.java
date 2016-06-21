@@ -236,7 +236,7 @@ public class Generator {
                 literal("+");
                 leftblock();
                 close();
-
+                debug();
             rightblock();
             close();
         left();
@@ -491,6 +491,12 @@ public class Generator {
         leftn(4);
         leftnblock(3);
         endPosition(PointerLocation.STACKEND);
+    }
+
+    //replace a,b on the stack with a/b, a%b
+    //[>[->+>+<<]>[-<<-[>]>>>[<[-<->]<[>]>>[[-]>>+<]>-<]<<]>>>+<<[-<<+>>]<<<]>>>>>[-<<<<<+>>>>>]<<<<<
+    public void divmod(){
+
     }
 
     public void swapVariables(String var1, String var2){

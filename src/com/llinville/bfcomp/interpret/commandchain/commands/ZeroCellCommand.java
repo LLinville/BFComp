@@ -2,7 +2,7 @@ package com.llinville.bfcomp.interpret.commandchain.commands;
 
 import com.llinville.bfcomp.interpret.commandchain.InterpreterState;
 
-public class ZeroCellCommand extends Command implements Balanced{
+public class ZeroCellCommand extends Command{
     public ZeroCellCommand(){
         super(CommandType.ZERO);
     }

@@ -11,20 +11,19 @@ public class InterpreterExample {
         Generator g = new Generator();
 
         //FIBONACCI
-        g.initialize(10);
-        g.debug();
-        g.newVariable("a",0);
-        g.newVariable("b",1);
-        g.newVariable("c",30);
-        g.whileVariable("c");
-            g.swapVariables("a", "b");
-            g.pushVariableOntoStack("a");
-            g.pushVariableOntoStack("b");
-            g.add();
-            g.printStackValue();
-            g.popStackIntoVariable("b");
-            g.decVariable("c");
-        g.endWhileVariable("c");
+//        g.initialize(10);
+//        g.newVariable("a",0);
+//        g.newVariable("b",1);
+//        g.newVariable("c",30);
+//        g.whileVariable("c");
+//            g.swapVariables("a", "b");
+//            g.pushVariableOntoStack("a");
+//            g.pushVariableOntoStack("b");
+//            g.add();
+//            g.printStackValue();
+//            g.popStackIntoVariable("b");
+//            g.decVariable("c");
+//        g.endWhileVariable("c");
 
 //        g.initialize(8);
 //        g.pushToStack(5);
@@ -32,7 +31,10 @@ public class InterpreterExample {
 //        g.checkEquality();
 //        System.out.println(g.getProgram());
 
-        //g.evaluatePolynomial(2,1,1,0,1,1);
+//        g.initialize(10);
+//        g.evaluatePolynomial(10,3,1,4,1,5,9,2,6);
+
+
 
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());
         long startTime = new Date().getTime();

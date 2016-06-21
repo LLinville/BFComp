@@ -1,9 +1,8 @@
 package com.llinville.bfcomp.interpret.commandchain.commands;
 
-import com.llinville.bfcomp.interpret.Interpreter;
 import com.llinville.bfcomp.interpret.commandchain.InterpreterState;
 
-public class SetValueCommand extends Command implements Balanced{
+public class SetValueCommand extends Command{
     int value;
 
     public SetValueCommand(int value){

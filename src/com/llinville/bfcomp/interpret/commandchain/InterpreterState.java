@@ -1,7 +1,5 @@
 package com.llinville.bfcomp.interpret.commandchain;
 
-import com.llinville.bfcomp.interpret.Interpreter;
-
 import java.util.Map;
 
 public class InterpreterState {
@@ -61,6 +59,14 @@ public class InterpreterState {
 
     public void setTapeLocation(int location){
         tapeLocation = location;
+    }
+
+    public void setValueAtLocation(int location, int value){
+        tape[location] = value;
+    }
+
+    public void incValueAtLocation(int location, int value){
+        tape[location] += value;
     }
 
     public void incn(int n){

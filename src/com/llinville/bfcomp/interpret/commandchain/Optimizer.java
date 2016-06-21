@@ -6,13 +6,13 @@ import com.llinville.bfcomp.interpret.commandchain.optimizers.BalancedLoopOptimi
 
 public class Optimizer {
     public static CommandChain optimize(CommandChain commandChain){
-        int commandChainLength = commandChain.length();
-        commandChain = removeIncDec(commandChain);
+        int commandChainLength = 0;
         while(commandChainLength != commandChain.length()){
             commandChainLength = commandChain.length();
             commandChain = removeIncDec(commandChain);
             commandChain = removeZeroCell(commandChain);
             commandChain = removeLeftRight(commandChain);
+            commandChain = removeBalancedLoop(commandChain);
         }
         return commandChain;
     }
@@ -25,7 +25,6 @@ public class Optimizer {
                 //at the start of a potential chain of increments
                 int runLength = getRunLength(commandChain, currentIndex);
                 if (runLength > 1) {
-                    System.out.println("Found run of +'s " + runLength + " long for removal");
                     //replace the run with a new IncDecValueCommand
                     return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(runLength));
                 }
@@ -33,11 +32,9 @@ public class Optimizer {
                 //at the start of a potential chain of decrements
                 int runLength = getRunLength(commandChain, currentIndex);
                 if(runLength > 1){
-                    System.out.println("Found run of -'s " + runLength + " long for removal");
                     //replace the run with a new IncDecValueCommand
                     return toReturn.replaceRange(currentIndex, currentIndex + runLength, new IncDecValueCommand(-1*runLength));
                 }
-
             }
             currentIndex++;
         }
@@ -52,7 +49,6 @@ public class Optimizer {
                 //at the start of a potential chain of increments
                 int runLength = getRunLength(commandChain, currentIndex);
                 if (runLength > 1) {
-                    System.out.println("Found run of <'s " + runLength + " long for removal");
                     //replace the run with a new IncDecValueCommand
                     return toReturn.replaceRange(currentIndex, currentIndex + runLength, new LeftRightCommand(-1 * runLength));
                 }
@@ -60,7 +56,6 @@ public class Optimizer {
                 //at the start of a potential chain of decrements
                 int runLength = getRunLength(commandChain, currentIndex);
                 if(runLength > 1){
-                    System.out.println("Found run of >'s " + runLength + " long for removal");
                     //replace the run with a new IncDecValueCommand
                     return toReturn.replaceRange(currentIndex, currentIndex + runLength, new LeftRightCommand(runLength));
                 }
