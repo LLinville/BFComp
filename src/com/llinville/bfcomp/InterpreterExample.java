@@ -10,12 +10,13 @@ public class InterpreterExample {
 
         Generator g = new Generator();
 
-        //FIBONACCI
+//        //FIBONACCI
 //        g.initialize(10);
 //        g.newVariable("a",0);
 //        g.newVariable("b",1);
-//        g.newVariable("c",30);
-//        g.whileVariable("c");
+//        g.newVariable("c",10);
+//        g.whileVariable("a");
+//            g.debug();
 //            g.swapVariables("a", "b");
 //            g.pushVariableOntoStack("a");
 //            g.pushVariableOntoStack("b");
@@ -41,8 +42,7 @@ public class InterpreterExample {
         g.debug();
         g.ifStack();
             g.debug();
-        g.endIfStack;
-
+        g.endIf();
 
 
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());

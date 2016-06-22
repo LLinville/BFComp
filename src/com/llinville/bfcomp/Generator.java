@@ -109,6 +109,8 @@ public class Generator {
     }
 
     public void cleanProgram(){
+        System.out.println("Pre-Cleaning Program:");
+        System.out.println(program);
         int oldlen = program.length();
         System.out.println("Before cleaning length: " + oldlen);
         cleanOnce();
@@ -209,16 +211,30 @@ public class Generator {
         rightn(blockSize * n);
     }
 
+    public void printCellValue(){
+        literal(".");
+    }
+
     public void printStackValue(){
         rightn(4);
-        literal(".");
+        printCellValue();
         leftn(4);
     }
 
     public void printVariableValue(){
         rightn(5);
-        literal(".");
+        printCellValue();
         leftn(5);
+    }
+
+    public void printStringFromVariable(String name){
+        gotoVariable(name);
+        rightn(4);
+        open();
+            printCellValue();
+            rightblock();
+        close();
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void debug(){
@@ -226,6 +242,7 @@ public class Generator {
     }
 
     public void initialize(int n){
+        startPosition(PointerLocation.ZERO);
         rightblock();
         right();
         setValue(n-1);
@@ -240,24 +257,25 @@ public class Generator {
             close();
         left();
         leftblock();
-        gotoStart();
-
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void gotoStart(){
         open();
         leftblock();
         close();
+        endPosition(PointerLocation.ZERO);
     }
 
     public void gotoEndOfStack(){
-        gotoStart();
+        startPosition(PointerLocation.ZERO);
         rightn(3); //goto isEndOfStack
         open();
         rightblock();
         close();
         leftblock();
         leftn(3);
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void pushToStack(int n){
@@ -268,11 +286,12 @@ public class Generator {
         right();
         setValue(n);
         leftn(4);
+        endPosition(PointerLocation.STACKEND);
     }
 
     //go to the start of the zero-indexed block numbered n
     public void gotoBlock(int n){
-        gotoStart();
+        startPosition(PointerLocation.ZERO);
         right();
         setValue(n);
         literal("[-");
@@ -284,6 +303,7 @@ public class Generator {
         rightblock();
         close();
         left();
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void newVariable(String name){
@@ -295,11 +315,21 @@ public class Generator {
         rightn(5);
         setValue(value);
         leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
+    }
+
+    public void newArray(String name, int size){
+        makeVariableTableEntry(name, size);
+    }
+
+    public void newString(String name, String value){
+        makeVariableTableEntry(name, value.length() + 1);
     }
 
     public void gotoVariable(String name){
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void incnVariable(String name, int n){
@@ -307,6 +337,7 @@ public class Generator {
         rightn(5);
         incn(n);
         leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void decnVariable(String name, int n){
@@ -314,14 +345,40 @@ public class Generator {
         rightn(5);
         decn(n);
         leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void incVariable(String name){
         incnVariable(name, 1);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void decVariable(String name){
         decnVariable(name, 1);
+        endPosition(PointerLocation.UNKNOWN);
+    }
+
+    public void initializeArray(String varName, int[] data){
+        gotoVariable(varName);
+        rightn(4);
+        for(int i=0; i<data.length; i++){
+            setValue(data[i]);
+            rightblock();
+        }
+        leftn(4);
+        endPosition(PointerLocation.UNKNOWN);
+    }
+
+    public void setStringValue(String name, String value){
+        char[] charArray = value.toCharArray();
+        int[] dataArray = new int[value.length() + 1];
+
+        for(int i=0; i<value.length(); i++){
+            dataArray[i] = (int) charArray[i];
+        }
+        dataArray[value.length()] = 0;
+
+        initializeArray(name, dataArray);
     }
 
     public void pushVariableOntoStack(String name){
@@ -364,11 +421,12 @@ public class Generator {
             rightblock();
         close();
         literal("+<[->>+<<]<<");
-
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void popStackIntoVariable(String name){
         int variableLocation = variableLocations.get(name);
+        startPosition(PointerLocation.STACKEND);
         literal(">>[-]>>[-<<+>>]<-<<<"); //copy from stack value into scratch space
 
         //go to the first block
@@ -408,6 +466,7 @@ public class Generator {
 
         //move the value to the variable slot
         literal(">>>>[-]<<<[->>>+<<<]<<");
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void popStack(){
@@ -420,6 +479,7 @@ public class Generator {
     }
 
     public void add(){
+        startPosition(PointerLocation.STACKEND);
         rightn(3);
         dec();
         right();
@@ -431,9 +491,11 @@ public class Generator {
         close();
         leftn(4);
         leftblock();
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void sub(){
+        startPosition(PointerLocation.STACKEND);
         rightn(3);
         dec();
         right();
@@ -445,9 +507,11 @@ public class Generator {
         close();
         leftn(4);
         leftblock();
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void mult(){
+        startPosition(PointerLocation.STACKEND);
         //clean temporary cells
         rightn(3);
         dec();
@@ -623,19 +687,43 @@ public class Generator {
         endPosition(PointerLocation.STACKEND);
     }
 
-    public void evaluatePolynomial(int base, int ... coefficients){
+    public void endIf(){
         startPosition(PointerLocation.STACKEND);
-        int order = coefficients.length;
-        pushToStack(0);
-        for(int i = 0; i < order - 1; i++){
-            pushToStack(coefficients[i]);
-            add();
-            pushToStack(base);
-            mult();
-        }
-        pushToStack(coefficients[coefficients.length-1]);
-        add();
+        rightblock();
+        rightn(4);
+        zeroCell();
+        close();
+        leftn(4);
+        endPosition(PointerLocation.UNKNOWN);
+    }
+
+    public void ifNotStack(){
+        startPosition(PointerLocation.STACKEND);
+        rightn(4);
+        rightblock();
+        inc();
+        leftblock();
+        open();
+            rightblock();
+            dec();
+        close();
+        rightblock();
+        open();
+            rightblock();
+        close();
+        leftblock();
+        open();
+        leftblock();
+        leftn(4);
         endPosition(PointerLocation.STACKEND);
+    }
+
+    public void endIfNotStack(){
+        startPosition(PointerLocation.STACKEND);
+        rightn(4);
+        close();
+        leftn(4);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     //eat two from the stack and put back 1 if they were equal and zero otherwise
@@ -664,6 +752,21 @@ public class Generator {
 
 
 
+        endPosition(PointerLocation.STACKEND);
+    }
+
+    public void evaluatePolynomial(int base, int ... coefficients){
+        startPosition(PointerLocation.STACKEND);
+        int order = coefficients.length;
+        pushToStack(0);
+        for(int i = 0; i < order - 1; i++){
+            pushToStack(coefficients[i]);
+            add();
+            pushToStack(base);
+            mult();
+        }
+        pushToStack(coefficients[coefficients.length-1]);
+        add();
         endPosition(PointerLocation.STACKEND);
     }
 }
