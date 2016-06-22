@@ -34,6 +34,15 @@ public class InterpreterExample {
 //        g.initialize(10);
 //        g.evaluatePolynomial(10,3,1,4,1,5,9,2,6);
 
+        g.initialize(10);
+        g.pushToStack(30);
+        g.pushToStack(5);
+        g.divmod();
+        g.debug();
+        g.ifStack();
+            g.debug();
+        g.endIfStack;
+
 
 
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());

@@ -236,7 +236,6 @@ public class Generator {
                 literal("+");
                 leftblock();
                 close();
-                debug();
             rightblock();
             close();
         left();
@@ -496,7 +495,83 @@ public class Generator {
     //replace a,b on the stack with a/b, a%b
     //[>[->+>+<<]>[-<<-[>]>>>[<[-<->]<[>]>>[[-]>>+<]>-<]<<]>>>+<<[-<<+>>]<<<]>>>>>[-<<<<<+>>>>>]<<<<<
     public void divmod(){
+        startPosition(PointerLocation.STACKEND);
+        rightn(4);
+        rightblock();
+        zeroCell();
+        rightblock();
+        zeroCell();
+        rightblock();
+        zeroCell();
+        rightblock();
+        zeroCell();
+        leftnblock(5);
 
+        open();
+            rightblock();
+            open();
+                dec();
+                rightblock();
+                inc();
+                rightblock();
+                inc();
+                leftnblock(2);
+            close();
+            rightblock();
+            open();
+                dec();
+                leftnblock(2);
+                dec();
+                open();
+                    rightblock();
+                close();
+                rightnblock(3);
+                open();
+                    leftblock();
+                    open();
+                        dec();
+                        leftblock();
+                        dec();
+                        rightblock();
+                    close();
+                    leftblock();
+                    open();
+                        rightblock();
+                    close();
+                    rightnblock(2);
+                    open();
+                        zeroCell();
+                        rightnblock(2);
+                        inc();
+                        leftblock();
+                    close();
+                    rightblock();
+                    dec();
+                    leftblock();
+                close();
+                leftnblock(2);
+            close();
+            rightnblock(3);
+            inc();
+            leftnblock(2);
+            open();
+                dec();
+                leftnblock(2);
+                inc();
+                rightnblock(2);
+            close();
+            leftnblock(3);
+        close();
+        rightnblock(5);
+        open();
+            dec();
+            leftnblock(5);
+            inc();
+            rightnblock(5);
+        close();
+        leftnblock(4);
+        leftn(4);
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void swapVariables(String var1, String var2){
@@ -504,6 +579,7 @@ public class Generator {
         pushVariableOntoStack(var2);
         popStackIntoVariable(var1);
         popStackIntoVariable(var2);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void whileVariable(String name){
@@ -512,6 +588,7 @@ public class Generator {
         rightn(5);
         open();
         leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void endWhileVariable(String name){
@@ -520,6 +597,7 @@ public class Generator {
         rightn(5);
         close();
         leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void ifVariable(String name){
@@ -528,15 +606,21 @@ public class Generator {
         rightn(5);
         open();
         leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void endIfVariable(){
-        gotoStart();
+        startPosition(PointerLocation.ZERO);
         close();
+        endPosition(PointerLocation.ZERO);
     }
 
     public void ifStack(){
-
+        startPosition(PointerLocation.STACKEND);
+        rightn(4);
+        open();
+        leftn(4);
+        endPosition(PointerLocation.STACKEND);
     }
 
     public void evaluatePolynomial(int base, int ... coefficients){

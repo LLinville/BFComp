@@ -1,10 +1,10 @@
-Start indicator
-goto: number of blocks left to skip
-scratch / value carry-along
-	for moving variables from one location to another
-isPartOfStack
-stackValue
-variableValue
+0	Start indicator
+1	goto: number of blocks left to skip
+2	scratch / value carry-along
+	    for moving variables from one location to another
+3	isPartOfStack
+4	stackValue
+5	variableValue
 
 
 
