@@ -39,10 +39,9 @@ public class InterpreterExample {
         g.pushToStack(30);
         g.pushToStack(5);
         g.divmod();
-        g.debug();
-        g.ifStack();
+        g.ifNotStack();
             g.debug();
-        g.endIf();
+        g.end();
 
 
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());
@@ -65,7 +64,6 @@ public class InterpreterExample {
         startTime = new Date().getTime();
         stringInterpreter.run();
         endTime = new Date().getTime();
-        stringInterpreter.printState();
         long stringTime = endTime - startTime;
 
         System.out.println("CommandChainInterpreter time: " + commandChainTime);

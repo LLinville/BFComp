@@ -2,6 +2,7 @@ package com.llinville.bfcomp;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class Generator {
     private int blockSize;
@@ -10,6 +11,7 @@ public class Generator {
     private int openVariableLocation;
 
     private PointerLocation currentPointerLocation;
+    private Stack<ControlFlowDescriptor> controlFlowStack;
 
     public Generator(){
         program = "";
@@ -17,12 +19,55 @@ public class Generator {
         variableLocations = new HashMap<>();
         openVariableLocation = 0;
         currentPointerLocation = PointerLocation.ZERO;
+        controlFlowStack = new Stack<>();
     }
 
     private enum PointerLocation{
         STACKEND,
         ZERO,
         UNKNOWN;
+    }
+
+    private enum ControlFlowOp{
+        WHILE_VAR,
+        IF_VAR,
+        IF_STACK,
+        IFNOT_STACK;
+    }
+
+    private class ControlFlowDescriptor{
+        public ControlFlowOp operator;
+        public String description;
+        public ControlFlowDescriptor(ControlFlowOp operator, String description){
+            this.operator = operator;
+            this.description = description;
+        }
+    }
+
+    private void controlFlowOp(ControlFlowOp op){
+        controlFlowOp(op, null);
+    }
+
+    private void controlFlowOp(ControlFlowOp op, String description){
+        controlFlowStack.push(new ControlFlowDescriptor(op, description));
+    }
+
+    public void end(){
+        ControlFlowDescriptor descriptor = controlFlowStack.pop();
+        switch(descriptor.operator){
+            case WHILE_VAR:
+                endWhileVariable(descriptor.description);
+                break;
+            case IF_VAR:
+                endIfVariable();
+                break;
+            case IF_STACK:
+                endIf();
+                break;
+            case IFNOT_STACK:
+                endIfNotStack();
+                break;
+        }
     }
 
     //prepares for a function by putting the cursor in the right location
@@ -647,6 +692,7 @@ public class Generator {
     }
 
     public void whileVariable(String name){
+        controlFlowOp(ControlFlowOp.WHILE_VAR, name);
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
         rightn(5);
@@ -665,6 +711,7 @@ public class Generator {
     }
 
     public void ifVariable(String name){
+        controlFlowOp(ControlFlowOp.IF_VAR, name);
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
         rightn(5);
@@ -680,6 +727,7 @@ public class Generator {
     }
 
     public void ifStack(){
+        controlFlowOp(ControlFlowOp.IF_STACK);
         startPosition(PointerLocation.STACKEND);
         rightn(4);
         open();
@@ -698,6 +746,7 @@ public class Generator {
     }
 
     public void ifNotStack(){
+        controlFlowOp(ControlFlowOp.IFNOT_STACK);
         startPosition(PointerLocation.STACKEND);
         rightn(4);
         rightblock();
