@@ -102,8 +102,8 @@ public class StringInterpreter implements Interpreter{
                 }
                 break;
             case '.':
-                //System.out.println("Output: " + tape[tapeLocation] + " = " + (char) tape[tapeLocation]);
-                System.out.print((char) tape[tapeLocation]);
+                System.out.println("Output: " + tape[tapeLocation] + " = " + (char) tape[tapeLocation]);
+                //System.out.print((char) tape[tapeLocation]);
                 programCounter++;
                 break;
             case '#':

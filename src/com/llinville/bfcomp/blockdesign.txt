@@ -32,5 +32,34 @@ Optimizer
 
 
 
+//Primes
+currentNumber = 2
+primesLeft = 10
+currentFactor = 2
+factorsLeft
+isPrime
+while(primesLeft){
+    isPrime = 1
+    currentFactor = currentNumber - 1
+    factorsLeft = currentNumber - 2
+    while(factorsLeft){
+        if(! currentNumber % currentFactor){
+            isPrime = 0
+        }
+        factorsLeft--;
+        currentFactor--;
+    }
+
+    if(isPrime){
+        print(currentFactor)
+        primesLeft--;
+    }
+
+    currentNumber++;
+}
+
+
+
+
 
 

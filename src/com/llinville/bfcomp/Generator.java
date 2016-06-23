@@ -56,6 +56,7 @@ public class Generator {
         ControlFlowDescriptor descriptor = controlFlowStack.pop();
         switch(descriptor.operator){
             case WHILE_VAR:
+                System.out.println("Ending while(" + descriptor.description + ")");
                 endWhileVariable(descriptor.description);
                 break;
             case IF_VAR:
@@ -403,6 +404,14 @@ public class Generator {
         endPosition(PointerLocation.UNKNOWN);
     }
 
+    public void setVariable(String name, int value){
+        gotoVariable(name);
+        rightn(5);
+        setValue(value);
+        leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
+    }
+
     public void initializeArray(String varName, int[] data){
         gotoVariable(varName);
         rightn(4);
@@ -515,7 +524,14 @@ public class Generator {
     }
 
     public void popStack(){
-
+        startPosition(PointerLocation.STACKEND);
+        rightn(3);
+        zeroCell();
+        right();
+        zeroCell();
+        leftn(4);
+        leftblock();
+        endPosition(PointerLocation.STACKEND);
     }
 
     //places another copy of the top of the stack onto the stack
@@ -701,7 +717,7 @@ public class Generator {
         endPosition(PointerLocation.UNKNOWN);
     }
 
-    public void endWhileVariable(String name){
+    private void endWhileVariable(String name){
         int variableLocation = variableLocations.get(name);
         gotoBlock(variableLocation);
         rightn(5);
@@ -720,7 +736,7 @@ public class Generator {
         endPosition(PointerLocation.UNKNOWN);
     }
 
-    public void endIfVariable(){
+    private void endIfVariable(){
         startPosition(PointerLocation.ZERO);
         close();
         endPosition(PointerLocation.ZERO);
@@ -735,7 +751,7 @@ public class Generator {
         endPosition(PointerLocation.STACKEND);
     }
 
-    public void endIf(){
+    private void endIf(){
         startPosition(PointerLocation.STACKEND);
         rightblock();
         rightn(4);
@@ -767,7 +783,7 @@ public class Generator {
         endPosition(PointerLocation.STACKEND);
     }
 
-    public void endIfNotStack(){
+    private void endIfNotStack(){
         startPosition(PointerLocation.STACKEND);
         rightn(4);
         close();
