@@ -56,7 +56,6 @@ public class Generator {
         ControlFlowDescriptor descriptor = controlFlowStack.pop();
         switch(descriptor.operator){
             case WHILE_VAR:
-                System.out.println("Ending while(" + descriptor.description + ")");
                 endWhileVariable(descriptor.description);
                 break;
             case IF_VAR:
@@ -207,10 +206,12 @@ public class Generator {
 
     public void left(){
         literal("<");
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void right(){
         literal(">");
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void leftn(int n){
@@ -303,6 +304,8 @@ public class Generator {
             close();
         left();
         leftblock();
+        endPosition(PointerLocation.UNKNOWN);
+        newVariable("ZERO", 0);
         endPosition(PointerLocation.UNKNOWN);
     }
 
@@ -737,9 +740,12 @@ public class Generator {
     }
 
     private void endIfVariable(){
-        startPosition(PointerLocation.ZERO);
+        //we can't request a startPosition of zero
+        gotoStart();
+        rightn(5);
         close();
-        endPosition(PointerLocation.ZERO);
+        leftn(5);
+        endPosition(PointerLocation.UNKNOWN);
     }
 
     public void ifStack(){
@@ -786,6 +792,8 @@ public class Generator {
     private void endIfNotStack(){
         startPosition(PointerLocation.STACKEND);
         rightn(4);
+        rightblock();
+        zeroCell();
         close();
         leftn(4);
         endPosition(PointerLocation.UNKNOWN);
@@ -813,9 +821,6 @@ public class Generator {
 //            rightblock();
 //        close();
 //        leftblock();
-
-
-
 
         endPosition(PointerLocation.STACKEND);
     }

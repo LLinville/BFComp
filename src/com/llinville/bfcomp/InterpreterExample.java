@@ -68,43 +68,99 @@ public class InterpreterExample {
 //
 //            currentNumber++;
 //        }
+//
+//        g.initialize(15);
+//        g.newVariable("currentNumber", 2);
+//        g.newVariable("primesLeft", 10);
+//        g.newVariable("currentFactor");
+//        g.newVariable("factorsLeft");
+//        g.newVariable("isPrime");
+//        g.whileVariable("primesLeft");
+//            g.setVariable("isPrime", 1);
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(1);
+//            g.sub();
+//            g.popStackIntoVariable("currentFactor");
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(2);
+//            g.sub();
+//            g.popStackIntoVariable("factorsLeft");
+//
+//            g.whileVariable("factorsLeft");
+//                g.pushVariableOntoStack("currentNumber");
+//                g.pushVariableOntoStack("currentFactor");
+//                g.divmod();
+//                g.ifNotStack();
+//                    g.setVariable("isPrime", 0);
+//                g.end();
+//                g.decVariable("factorsLeft");
+//                g.decVariable("currentFactor");
+//                g.popStack();
+//                g.popStack();
+//            g.end();
+//
+//            g.ifVariable("isPrime");
+//                g.gotoVariable("currentNumber");
+//                g.printVariableValue();
+//                g.decVariable("primesLeft");
+//            g.end();
+//
+//            g.incVariable("currentNumber");
+//        g.end();
 
-        g.initialize(15);
-        g.newVariable("currentNumber", 2);
-        g.newVariable("primesLeft", 10);
-        g.newVariable("currentFactor");
-        g.newVariable("factorsLeft");
-        g.newVariable("isPrime");
-        g.whileVariable("primesLeft");
-            g.setVariable("isPrime", 1);
-            g.pushVariableOntoStack("currentNumber");
-            g.pushToStack(1);
-            g.sub();
-            g.popStackIntoVariable("currentFactor");
-            g.pushVariableOntoStack("currentNumber");
-            g.pushToStack(2);
-            g.sub();
-            g.popStackIntoVariable("factorsLeft");
-            g.whileVariable("factorsLeft");
-                g.pushVariableOntoStack("currentNumber");
-                g.pushVariableOntoStack("currentFactor");
-                g.divmod();
-                g.ifNotStack();
-                    g.setVariable("isPrime", 0);
-                g.end();
-                g.decVariable("factorsLeft");
-                g.decVariable("currentFactor");
-                g.popStack();
-                g.popStack();
-            g.end();
-            g.ifVariable("isPrime");
-                g.gotoVariable("currentNumber");
-                g.printVariableValue();
-                g.decVariable("primesLeft");
-            g.end();
-            g.incVariable("currentNumber");
-            g.debug();
-        g.end();
+//        g.initialize(15);
+//        g.newVariable("currentNumber", 5);
+//        g.newVariable("currentFactor");
+//        g.newVariable("factorsLeft");
+//        g.newVariable("isPrime");
+//        g.whileVariable("currentNumber");
+//            g.setVariable("isPrime", 1);
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(1);
+//            g.sub();
+//            g.popStackIntoVariable("currentFactor");
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(2);
+//            g.sub();
+//            g.popStackIntoVariable("factorsLeft");
+//
+//            g.whileVariable("factorsLeft");
+//                g.pushVariableOntoStack("currentNumber");
+//                g.pushVariableOntoStack("currentFactor");
+//                g.divmod();
+//                g.ifNotStack();
+//                    g.setVariable("isPrime", 0);
+//                g.end();
+//                g.decVariable("factorsLeft");
+//                g.decVariable("currentFactor");
+//                g.popStack();
+//                g.popStack();
+//            g.end();
+//
+//            g.ifVariable("isPrime");
+//                g.gotoVariable("currentNumber");
+//                g.printVariableValue();
+//            g.end();
+//            g.incVariable("currentNumber");
+//        g.end();
+
+        //PRINT MULTIPLES
+//        g.initialize(10);
+//        g.newVariable("currentNumber", 0);
+//        g.newVariable("numbersLeft", 100);
+//        g.whileVariable("numbersLeft");
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(4);
+//            g.divmod();
+//            g.ifNotStack();
+//                g.gotoVariable("currentNumber");
+//                g.printVariableValue();
+//            g.end();
+//            g.popStack();
+//            g.popStack();
+//            g.decVariable("numbersLeft");
+//            g.incVariable("currentNumber");
+//        g.end();
 
         CommandChainInterpreter interpreter = new CommandChainInterpreter(g.getProgram());
         long startTime = new Date().getTime();
