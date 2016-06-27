@@ -1,4 +1,4 @@
-package com.llinville.bfcomp;
+package com.llinville.bfcomp.generate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -281,6 +281,7 @@ public class Generator {
             printCellValue();
             rightblock();
         close();
+        leftn(4);
         endPosition(PointerLocation.UNKNOWN);
     }
 
@@ -381,6 +382,12 @@ public class Generator {
         endPosition(PointerLocation.UNKNOWN);
     }
 
+    public void gotoArrayIndex(String varName, int index){
+        int variableLocation = variableLocations.get(varName);
+        gotoBlock(variableLocation + index);
+        endPosition(PointerLocation.UNKNOWN);
+    }
+
     public void incnVariable(String name, int n){
         gotoVariable(name);
         rightn(5);
@@ -414,6 +421,8 @@ public class Generator {
         leftn(5);
         endPosition(PointerLocation.UNKNOWN);
     }
+
+
 
     public void initializeArray(String varName, int[] data){
         gotoVariable(varName);
