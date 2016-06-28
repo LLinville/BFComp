@@ -70,44 +70,44 @@ public class InterpreterExample {
 //            currentNumber++;
 //        }
 //
-        g.initialize(15);
-        g.newVariable("currentNumber", 2);
-        g.newVariable("primesLeft", 10);
-        g.newVariable("currentFactor");
-        g.newVariable("factorsLeft");
-        g.newVariable("isPrime");
-        g.whileVariable("primesLeft");
-            g.setVariable("isPrime", 1);
-            g.pushVariableOntoStack("currentNumber");
-            g.pushToStack(1);
-            g.sub();
-            g.popStackIntoVariable("currentFactor");
-            g.pushVariableOntoStack("currentNumber");
-            g.pushToStack(2);
-            g.sub();
-            g.popStackIntoVariable("factorsLeft");
-
-            g.whileVariable("factorsLeft");
-                g.pushVariableOntoStack("currentNumber");
-                g.pushVariableOntoStack("currentFactor");
-                g.divmod();
-                g.ifNotStack();
-                    g.setVariable("isPrime", 0);
-                g.end();
-                g.decVariable("factorsLeft");
-                g.decVariable("currentFactor");
-                g.popStack();
-                g.popStack();
-            g.end();
-
-            g.ifVariable("isPrime");
-                g.gotoVariable("currentNumber");
-                g.printVariableValue();
-                g.decVariable("primesLeft");
-            g.end();
-
-            g.incVariable("currentNumber");
-        g.end();
+//        g.initialize(15);
+//        g.newVariable("currentNumber", 2);
+//        g.newVariable("primesLeft", 10);
+//        g.newVariable("currentFactor");
+//        g.newVariable("factorsLeft");
+//        g.newVariable("isPrime");
+//        g.whileVariable("primesLeft");
+//            g.setVariable("isPrime", 1);
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(1);
+//            g.sub();
+//            g.popStackIntoVariable("currentFactor");
+//            g.pushVariableOntoStack("currentNumber");
+//            g.pushToStack(2);
+//            g.sub();
+//            g.popStackIntoVariable("factorsLeft");
+//
+//            g.whileVariable("factorsLeft");
+//                g.pushVariableOntoStack("currentNumber");
+//                g.pushVariableOntoStack("currentFactor");
+//                g.divmod();
+//                g.ifNotStack();
+//                    g.setVariable("isPrime", 0);
+//                g.end();
+//                g.decVariable("factorsLeft");
+//                g.decVariable("currentFactor");
+//                g.popStack();
+//                g.popStack();
+//            g.end();
+//
+//            g.ifVariable("isPrime");
+//                g.gotoVariable("currentNumber");
+//                g.printVariableValue();
+//                g.decVariable("primesLeft");
+//            g.end();
+//
+//            g.incVariable("currentNumber");
+//        g.end();
 
 //        g.initialize(15);
 //        g.newVariable("currentNumber", 5);

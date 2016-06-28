@@ -848,4 +848,8 @@ public class Generator {
         add();
         endPosition(PointerLocation.STACKEND);
     }
+
+    public void evaluateExpression(String expression){
+        ExprParser.parseExprOnStack(this, expression);
+    }
 }
