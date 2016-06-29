@@ -1,5 +1,7 @@
 package com.llinville.bfcomp.generate;
 
+import com.llinville.bfcomp.generate.memory.MemoryManager;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -7,17 +9,15 @@ import java.util.Stack;
 public class Generator {
     private int blockSize;
     private String program;
-    private Map<String, Integer> variableLocations;
-    private int openVariableLocation;
+    private MemoryManager memoryManager;
 
     private PointerLocation currentPointerLocation;
     private Stack<ControlFlowDescriptor> controlFlowStack;
 
-    public Generator(){
+    public Generator(int tapeSize){
         program = "";
         blockSize = 6;
-        variableLocations = new HashMap<>();
-        openVariableLocation = 0;
+        memoryManager = new MemoryManager(30000);
         currentPointerLocation = PointerLocation.ZERO;
         controlFlowStack = new Stack<>();
     }
@@ -25,14 +25,14 @@ public class Generator {
     private enum PointerLocation{
         STACKEND,
         ZERO,
-        UNKNOWN;
+        UNKNOWN
     }
 
     private enum ControlFlowOp{
         WHILE_VAR,
         IF_VAR,
         IF_STACK,
-        IFNOT_STACK;
+        IFNOT_STACK
     }
 
     private class ControlFlowDescriptor{
@@ -102,20 +102,6 @@ public class Generator {
 
     private void endPosition(PointerLocation result){
         currentPointerLocation = result;
-    }
-
-    public int makeVariableTableEntry(String name){
-        int originalOVL = openVariableLocation;
-        variableLocations.put(name, openVariableLocation);
-        openVariableLocation++;
-        return originalOVL;
-    }
-
-    public int makeVariableTableEntry(String name, int size){
-        int originalOVL = openVariableLocation;
-        variableLocations.put(name, openVariableLocation);
-        openVariableLocation += size;
-        return originalOVL;
     }
 
     private void removeUselessLoops(){
