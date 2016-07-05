@@ -1,9 +1,6 @@
 package com.llinville.bfcomp.generate.memory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MemoryManager {
     private Map<String, MemoryAllocation> variableLocations;
@@ -12,6 +9,7 @@ public class MemoryManager {
     public MemoryManager(int size){
         variableLocations = new HashMap<>();
         openLocationTable = new boolean[size];
+        Arrays.fill(openLocationTable, true);
     }
 
     public int getFreeBlock(String name){

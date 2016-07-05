@@ -14,6 +14,10 @@ public class Generator {
     private PointerLocation currentPointerLocation;
     private Stack<ControlFlowDescriptor> controlFlowStack;
 
+    public Generator(){
+        this(30000);
+    }
+
     public Generator(int tapeSize){
         program = "";
         blockSize = 6;
@@ -342,34 +346,38 @@ public class Generator {
         endPosition(PointerLocation.UNKNOWN);
     }
 
-    public void newVariable(String name){
-        makeVariableTableEntry(name);
+    public int newVariable(String name){
+        return memoryManager.getFreeBlock(name);
     }
 
     public void newVariable(String name, int value){
-        gotoBlock(makeVariableTableEntry(name));
+        gotoBlock(memoryManager.getFreeBlock(name));
         rightn(5);
         setValue(value);
         leftn(5);
         endPosition(PointerLocation.UNKNOWN);
     }
 
+    public void free(String name){
+        memoryManager.free(name);
+    }
+
     public void newArray(String name, int size){
-        makeVariableTableEntry(name, size);
+        memoryManager.getFreeBlock(name, size);
     }
 
     public void newString(String name, String value){
-        makeVariableTableEntry(name, value.length() + 1);
+        memoryManager.getFreeBlock(name, value.length() + 1);
     }
 
     public void gotoVariable(String name){
-        int variableLocation = variableLocations.get(name);
+        int variableLocation = memoryManager.getLocation(name);
         gotoBlock(variableLocation);
         endPosition(PointerLocation.UNKNOWN);
     }
 
     public void gotoArrayIndex(String varName, int index){
-        int variableLocation = variableLocations.get(varName);
+        int variableLocation = memoryManager.getLocation(varName);
         gotoBlock(variableLocation + index);
         endPosition(PointerLocation.UNKNOWN);
     }
@@ -434,7 +442,7 @@ public class Generator {
     }
 
     public void pushVariableOntoStack(String name){
-        int variableLocation = variableLocations.get(name);
+        int variableLocation = memoryManager.getLocation(name);
         gotoBlock(variableLocation);
         rightn(5); //goto variableValue
         //copy to the scratch variable move along
@@ -477,7 +485,7 @@ public class Generator {
     }
 
     public void popStackIntoVariable(String name){
-        int variableLocation = variableLocations.get(name);
+        int variableLocation = memoryManager.getLocation(name);
         startPosition(PointerLocation.STACKEND);
         literal(">>[-]>>[-<<+>>]<-<<<"); //copy from stack value into scratch space
 
@@ -707,7 +715,7 @@ public class Generator {
 
     public void whileVariable(String name){
         controlFlowOp(ControlFlowOp.WHILE_VAR, name);
-        int variableLocation = variableLocations.get(name);
+        int variableLocation = memoryManager.getLocation(name);
         gotoBlock(variableLocation);
         rightn(5);
         open();
@@ -716,7 +724,7 @@ public class Generator {
     }
 
     private void endWhileVariable(String name){
-        int variableLocation = variableLocations.get(name);
+        int variableLocation = memoryManager.getLocation(name);
         gotoBlock(variableLocation);
         rightn(5);
         close();
@@ -726,7 +734,7 @@ public class Generator {
 
     public void ifVariable(String name){
         controlFlowOp(ControlFlowOp.IF_VAR, name);
-        int variableLocation = variableLocations.get(name);
+        int variableLocation = memoryManager.getLocation(name);
         gotoBlock(variableLocation);
         rightn(5);
         open();
@@ -759,6 +767,7 @@ public class Generator {
         zeroCell();
         close();
         leftn(4);
+        //TODO: optimize to end at STACKEND
         endPosition(PointerLocation.UNKNOWN);
     }
 
