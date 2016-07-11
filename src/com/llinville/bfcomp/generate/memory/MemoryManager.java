@@ -18,7 +18,7 @@ public class MemoryManager {
             System.err.println("Out of memory allocation slots");
         }
         variableLocations.put(name, new MemoryAllocation(name, openVariableLocation, 1));
-        openLocationTable[openVariableLocation] = true;
+        openLocationTable[openVariableLocation] = false;
         return openVariableLocation;
     }
 
@@ -30,7 +30,7 @@ public class MemoryManager {
 
         variableLocations.put(name, new MemoryAllocation(name, openVariableLocation, size));
         for(int i = openVariableLocation; i < openVariableLocation + size; i++){
-            openLocationTable[i] = false;
+            openLocationTable[i] = true;
         }
 
         return openVariableLocation;

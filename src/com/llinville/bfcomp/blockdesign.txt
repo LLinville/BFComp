@@ -30,33 +30,18 @@ Optimizer
 
 
 
+Given a stack:
+	x	x	A	B	FUNCyTOWN
 
+Pop function argument
+	Stack:
+	x	x	A	B
 
-//Primes
-currentNumber = 2
-primesLeft = 10
-currentFactor = 2
-factorsLeft
-isPrime
-while(primesLeft){
-    isPrime = 1
-    currentFactor = currentNumber - 1
-    factorsLeft = currentNumber - 2
-    while(factorsLeft){
-        if(! currentNumber % currentFactor){
-            isPrime = 0
-        }
-        factorsLeft--;
-        currentFactor--;
-    }
+Pop and create temporary variables for each argument
+	Vars: A-<id>	B-<id>
+	Stack:	x	x
 
-    if(isPrime){
-        print(currentFactor)
-        primesLeft--;
-    }
-
-    currentNumber++;
-}
+Evaluate expression on the stack
 
 
 

@@ -2,9 +2,9 @@ package com.llinville.bfcomp.generate;
 
 import com.llinville.bfcomp.generate.memory.MemoryManager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Generator {
     private int blockSize;
@@ -279,6 +279,22 @@ public class Generator {
         literal("#");
     }
 
+    public void balancedLoop(Map<Integer, Integer> offsetIncrements){
+        int minOffset = offsetIncrements.get(Collections.min(offsetIncrements.keySet()));
+        leftn(Math.abs(minOffset));
+        List<Integer> differences = IntStream.range(0, offsetIncrements.keySet().size() - 1)
+                .map(i -> Integer.valueOf((int)offsetIncrements.keySet().toArray()[i + 1] - (int)offsetIncrements.keySet().toArray()[i]))
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+
+        List<Integer> keys = new ArrayList<>(offsetIncrements.keySet());
+        Collections.sort(keys);
+
+        for(int i=0; i < keys.size(); i++){
+
+        }
+
+    }
+
     public void initialize(int n){
         startPosition(PointerLocation.ZERO);
         rightblock();
@@ -542,6 +558,29 @@ public class Generator {
 
     //places another copy of the top of the stack onto the stack
     public void dupStackTop(){
+        startPosition(PointerLocation.STACKEND);
+        rightn(4);
+        open();
+            dec();
+            rightblock();
+            inc();
+            rightblock();
+            inc();
+            leftnblock(2);
+        close();
+        rightnblock(2);
+        open();
+            dec();
+            leftnblock(2);
+            inc();
+            rightnblock(2);
+        close();
+        leftblock();
+        left();
+        inc();
+        leftn(3);
+        leftblock();
+        endPosition(PointerLocation.STACKEND);
 
     }
 

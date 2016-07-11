@@ -2,7 +2,7 @@ package com.llinville.bfcomp.examples;
 
 import com.llinville.bfcomp.generate.Generator;
 
-public class PrimeFinder extends ExampleProgram{
+public class PrimeFinder{
     public static String getProgram(){
         //PRIMES
 //        currentNumber = 2
@@ -31,12 +31,13 @@ public class PrimeFinder extends ExampleProgram{
 //        }
 
         Generator g = new Generator();
-        g.initialize(15);
+        g.initialize(30);
         g.newVariable("currentNumber", 2);
-        g.newVariable("primesLeft", 10);
+        g.newVariable("primesLeft", 30);
         g.newVariable("currentFactor");
         g.newVariable("factorsLeft");
         g.newVariable("isPrime");
+
         g.whileVariable("primesLeft");
             g.setVariable("isPrime", 1);
             g.pushVariableOntoStack("currentNumber");
