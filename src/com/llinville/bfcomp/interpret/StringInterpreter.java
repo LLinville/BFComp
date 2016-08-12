@@ -17,7 +17,7 @@ public class StringInterpreter implements Interpreter{
 
     public StringInterpreter(String program){
         tape = new int[tapeLength];
-        bracketMap = new HashMap<Integer, Integer>();
+        bracketMap = new HashMap<>();
         programCounter = 0;
         tapeLocation = 0;
         instructionsExecuted = 0;
@@ -121,5 +121,13 @@ public class StringInterpreter implements Interpreter{
         while(programCounter < program.length){
             step();
         }
+    }
+
+    public int getTapeLocation(){
+        return tapeLocation;
+    }
+
+    public int getTapeValueAt(int index){
+        return tape[index];
     }
 }
