@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1c507e4-2261-4e04-9cfc-3831178f61ab" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/LoggingStringInterpreter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java" afterPath="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java" />
     </list>
     <ignored path="bfcomp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,19 +27,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BFGui.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BFGui.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+            <state relative-caret-position="-720">
+              <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#377#378#0" expanded="true" />
-                <element signature="e#412#413#0" expanded="true" />
-                <element signature="initializer##0;class#BFGui#0" expanded="true" />
-                <element signature="initializer##0;class#BFGui#0" expanded="true" />
-                <element signature="e#6733#6734#0" expanded="true" />
-                <element signature="e#6762#6763#0" expanded="true" />
+                <element signature="e#803#804#0" expanded="true" />
+                <element signature="e#852#853#0" expanded="true" />
+                <element signature="e#1004#1005#0" expanded="true" />
+                <element signature="e#1052#1053#0" expanded="true" />
+                <element signature="e#1115#1116#0" expanded="true" />
+                <element signature="e#1150#1151#0" expanded="true" />
+                <element signature="method#$$$setupUI$$$#0;class#BFGui#0" expanded="true" />
+                <element signature="method#$$$setupUI$$$#0;class#BFGui#0" expanded="true" />
+                <element signature="e#7487#7488#0" expanded="true" />
+                <element signature="e#7516#7517#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,17 +52,33 @@
       <file leaf-file-name="BFVisualizer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+            <state relative-caret-position="465">
+              <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#522#523#0" expanded="true" />
-                <element signature="e#579#580#0" expanded="true" />
-                <element signature="e#1818#1819#0" expanded="true" />
-                <element signature="e#1889#1890#0" expanded="true" />
-                <element signature="e#1933#1934#0" expanded="true" />
-                <element signature="e#2005#2006#0" expanded="true" />
+                <element signature="e#922#923#0" expanded="true" />
+                <element signature="e#956#957#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BalancedLoopOptimizer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/commandchain/optimizers/BalancedLoopOptimizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Graphics.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/src.zip!/java/awt/Graphics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="70">
+              <caret line="415" column="25" selection-start-line="415" selection-start-column="25" selection-end-line="415" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,9 +96,13 @@
       <file leaf-file-name="StringInterpreter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-341">
-              <caret line="67" column="33" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
-              <folding />
+            <state relative-caret-position="0">
+              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4224#4225#0" expanded="true" />
+                <element signature="e#4258#4259#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,8 +110,8 @@
       <file leaf-file-name="LoggingStringInterpreter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/LoggingStringInterpreter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+            <state relative-caret-position="180">
+              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#770#771#0" expanded="true" />
@@ -120,19 +141,12 @@
       <file leaf-file-name="MemoryManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/generate/memory/MemoryManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
+            <state relative-caret-position="780">
               <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="blockdesign.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/blockdesign.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-              <folding />
+              <folding>
+                <element signature="e#1323#1324#0" expanded="false" />
+                <element signature="e#1379#1380#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,13 +199,13 @@
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFCompGui.java" />
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/examples/InterpreterExample.java" />
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.fxml" />
-        <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form" />
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/Interpreter.java" />
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/Constants.java" />
-        <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java" />
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/LoggingStringInterpreter.java" />
-        <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java" />
+        <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form" />
+        <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java" />
         <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java" />
+        <option value="$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java" />
       </list>
     </option>
   </component>
@@ -203,8 +217,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2021" />
-    <option name="y" value="-270" />
+    <option name="x" value="-2012" />
+    <option name="y" value="-274" />
     <option name="width" value="2014" />
     <option name="height" value="1157" />
   </component>
@@ -237,7 +251,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -314,13 +328,47 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
+              <option name="myItemId" value="interpret" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commandchain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BFComp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BFComp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bfcomp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interpret" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commandchain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="optimizers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -698,7 +746,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2021" y="-270" width="2014" height="1157" extended-state="0" />
+    <frame x="-2012" y="-274" width="2014" height="1157" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -709,8 +757,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40813464" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33615023" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32399103" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33521128" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32333645" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14300203" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
@@ -770,13 +818,13 @@
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java</url>
-          <line>26</line>
+          <url>file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java</url>
+          <line>36</line>
           <properties />
-          <option name="timeStamp" value="30" />
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="31" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -785,13 +833,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/examples/InterpreterExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -951,7 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -987,10 +1027,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="68" column="32" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
-          <folding>
-            <element signature="e#1799#1800#0" expanded="false" />
-            <element signature="e#1838#1839#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -998,14 +1034,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/commandchain/optimizers/BalancedLoopOptimizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="22" column="27" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1040,7 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1123,9 +1150,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/generate/memory/MemoryManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
+        <state relative-caret-position="780">
           <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
-          <folding />
+          <folding>
+            <element signature="e#1323#1324#0" expanded="false" />
+            <element signature="e#1379#1380#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/Constants.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form">
+      <provider selected="true" editor-type-id="ui-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/LoggingStringInterpreter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#770#771#0" expanded="true" />
+            <element signature="e#818#819#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1137,35 +1185,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/Constants.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/src.zip!/java/awt/Graphics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="1" selection-start-line="5" selection-start-column="39" selection-end-line="6" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/LoggingStringInterpreter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#770#771#0" expanded="true" />
-            <element signature="e#818#819#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.form">
-      <provider selected="true" editor-type-id="ui-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-341">
-          <caret line="67" column="33" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
+        <state relative-caret-position="70">
+          <caret line="415" column="25" selection-start-line="415" selection-start-column="25" selection-end-line="415" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -1178,35 +1201,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/StringInterpreter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+        <state relative-caret-position="0">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#522#523#0" expanded="true" />
-            <element signature="e#579#580#0" expanded="true" />
-            <element signature="e#1818#1819#0" expanded="true" />
-            <element signature="e#1889#1890#0" expanded="true" />
-            <element signature="e#1933#1934#0" expanded="true" />
-            <element signature="e#2005#2006#0" expanded="true" />
+            <element signature="e#4224#4225#0" expanded="true" />
+            <element signature="e#4258#4259#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
+        <state relative-caret-position="-720">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#377#378#0" expanded="true" />
-            <element signature="e#412#413#0" expanded="true" />
-            <element signature="initializer##0;class#BFGui#0" expanded="true" />
-            <element signature="initializer##0;class#BFGui#0" expanded="true" />
-            <element signature="e#6733#6734#0" expanded="true" />
-            <element signature="e#6762#6763#0" expanded="true" />
+            <element signature="e#803#804#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#1004#1005#0" expanded="true" />
+            <element signature="e#1052#1053#0" expanded="true" />
+            <element signature="e#1115#1116#0" expanded="true" />
+            <element signature="e#1150#1151#0" expanded="true" />
+            <element signature="method#$$$setupUI$$$#0;class#BFGui#0" expanded="true" />
+            <element signature="method#$$$setupUI$$$#0;class#BFGui#0" expanded="true" />
+            <element signature="e#7487#7488#0" expanded="true" />
+            <element signature="e#7516#7517#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/gui/BFVisualizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#922#923#0" expanded="true" />
+            <element signature="e#956#957#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/llinville/bfcomp/interpret/commandchain/optimizers/BalancedLoopOptimizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
