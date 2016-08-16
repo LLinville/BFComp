@@ -59,7 +59,7 @@ public class InterpreterExample {
         g.popStack();
         g.popStack();
         g.end();
-        g.leftn;
+        //g.leftn;
 
         g.ifVariable("isPrime");
         g.gotoVariable("currentNumber");

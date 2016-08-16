@@ -14,5 +14,4 @@ public class FunctionManager {
         functions.add(function);
     }
 
-    function
 }
